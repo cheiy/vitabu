@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Vitabu Exchange</title>
+ 
+    <!--
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet"> 
+ 
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    -->
+    <link href="../static/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="../static/css/signup.css" rel="stylesheet">
+ 
+ 
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="/showAddPublisher">Add Publisher</a></li>
+		    <li role="presentation"><a href="/showAddGrade">Add Grade/Class/Form</a></li>
+		    <li role="presentation"><a href="/showAddUser">Add User</a></li>
+		    <li role="presentation"><a href="/showAddBook">Add Book</a></li>
+		    <li role="presentation"><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Buy, Sell, Exchange Text Books</h3>
+        </div>
+	</br>
+        <section>
+            <form class="form-horizontal" method="post" action="/addPublisher">
+                <fieldset>
+ 
+                    <!-- Form Name -->
+                    <legend>Add Publishers</legend>
+ 
+                    <!-- Long name-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="txtTitle">Publisher's Name</label>
+                        <div class="col-md-4">
+                            <input id="txtTitle" name="pubLongName" type="text" placeholder="Publisher's Long Name" class="form-control input-md">
+                        </div>
+                    </div>
+                   
+		    <!--Short Name-->
+		    <div class="form-group">
+                        <label class="col-md-4 control-label" for="txtTitle">Publisher's Short Name</label>
+                        <div class="col-md-4">
+                            <input id="txtTitle" name="pubShortName" type="text" placeholder="Publisher's Short Name" class="form-control input-md">
+                        </div> 
+		    </div>
+
+		    <!--Publisher's ISBN-->
+		    <div class="form-group">
+                        <label class="col-md-4 control-label" for="txtTitle">Publisher's ISBN</label>
+                        <div class="col-md-4">
+                            <input id="txtTitle" name="pubISBN" type="text" placeholder="Publisher's ISBN" class="form-control input-md">
+                        </div> 
+		    </div>
+     		    
+		    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"></label>
+                        <div class="col-md-4">
+                            <input id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" value="Add" />
+                        </div>
+                    </div>
+ 
+                </fieldset>
+            </form>
+ 
+        </section>
+        <footer class="footer">
+            <p>&copy; Vitabu 2021</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+</html>

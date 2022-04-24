@@ -1,0 +1,62 @@
+<!-- app/templates/home/index.html -->
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+     <ul class="flashes">
+       {% for message in messages %}
+         <li>{{ message }}</li>
+       {% endfor %}
+     </ul>
+   {% endif %}
+{% endwith %}
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+               <!-- <div class="intro-message">
+                    <h1>Vitabu - Nunua Uza Badilisha</h1>
+                    <h3>Find the best deals on books and stationery!</h3>
+		    <hr class="intro-divider"> 
+                    </div> -->
+                    <div class="content-section">
+                      <div class="center">
+                         {% from "./_formhelpers.html" import render_field %}
+                           <form method="post">
+                             <dl>
+                                {{ render_field(form.select2) }}
+                                <p>
+                                {{ render_field(form.select) }}
+                                {{ render_field(form.search) }}
+                                <p>
+                              </dl>
+		              <p><input type="submit" value="Search">
+		              </p>
+	                    </form> 
+                            <!--<table>
+				<tr>
+                                   <th>Book Title</th>
+                                   <th>ISBN</th>
+                                </tr>
+                                <tr>
+                                   <td>Mentor Mathematics</td>
+                                   <td>09029029</td>
+				</tr>
+                                <tr>
+				   <td>Mastering Computer</td>
+                                   <td>89283928</td>
+                                </tr>
+                            </table>--> 
+                       </div>
+                    </div>
+
+
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

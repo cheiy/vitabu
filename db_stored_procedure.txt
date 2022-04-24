@@ -1,0 +1,38 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
+    IN p_username VARCHAR(20),
+    IN p_name VARCHAR(20),
+    IN p_phone_number BIGINT(20),
+    IN p_gender VARCHAR(20),
+    IN p_password VARCHAR(100)
+)
+BEGIN
+    if ( select exists (select 1 from users where username = p_username) ) THEN
+     
+        select 'Username Exists !!';
+     
+    ELSE
+     
+        insert into users
+        (
+            username,
+	    name,
+	    password,
+	    email_address,
+	    phone_number,
+	    gender
+	)
+
+        values
+        (
+            p_username,
+	    p_name,
+	    p_password,
+            p_username,
+	    p_phone_number,
+            p_gender            
+        );
+     
+    END IF;
+END$$
+DELIMITER ;

@@ -1,0 +1,28 @@
+USE `vitabu`;
+DROP procedure IF EXISTS `vitabu`.`sp_addPublisher`;
+DELIMITER $$
+USE `vitabu`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_addPublisher`(
+	IN p_shortname varchar(50),
+	IN p_longname varchar(100),
+	IN p_ISBN bigint(13),
+        IN p_user_id bigint(20)
+)
+BEGIN
+	INSERT into publishers(
+	shortname,
+	longname,
+	ISBN,
+        user_id
+	)
+	values
+	(
+	p_shortname,
+	p_longname,
+	p_ISBN,
+        p_user_id
+	);
+END$$
+
+DELIMITER ;
+;

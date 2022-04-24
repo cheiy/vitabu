@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vitabu</title>
+ 
+    <!--
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+     -->
+    <link href="../static/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="../static/signup.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.6.0.js"></script>
+    
+  </head>
+ 
+  <body>
+ 
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" ><a href="main">Home</a></li>
+            <li role="presentation"><a href="/showSignin">Sign In</a></li>
+            <li role="presentation" class="active"><a href="#">Sign Up</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Vitabu</h3>
+      </div>
+ 
+      <div class="jumbotron">
+        <h1>Vitabu - Buy, Sell or Exchange</h1>
+        <form class="form-signin">
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="gender" class="sr-only">Gender</label>
+	<input type="gender" name="gender" id="gender" class="form-control" placeholder="gender" required>
+        <label for="phoneNumber" class="sr-only">Phone Number</label>
+	<input type="phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="+254" required>
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>
+
+      </form>
+      </div>
+ 
+       
+ 
+      <footer class="footer">
+        <p>&copy; Vitabu 2021</p>
+      </footer>
+ 
+    </div>
+  </body>
+</html>
+

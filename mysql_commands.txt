@@ -1,0 +1,15 @@
+ALTER TABLE users
+
+
+https://mariadb.com/kb/en/stored-procedures/
+
+https://mariadb.com/kb/en/show-create-procedure/
+
+https://mariadb.com/kb/en/show-procedure-status/
+
+
+https://www.mariadbtutorial.com/mariadb-basics/mariadb-where/
+
+
+
+https://www.oreilly.com/library/view/mysql-cookbook/0596001452/ch08s05.html
