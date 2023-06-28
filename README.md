@@ -1,8 +1,5 @@
 **Welcome to the Vitabu project.**  
-<picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github.com/cheiy/vitabu/assets/10514203/65529ad0-781e-452e-8110-8cd270e12ec0">
-<source media="(prefers-color-scheme: light)" srcset="https://github.com/cheiy/vitabu/assets/10514203/65529ad0-781e-452e-8110-8cd270e12ec0">
-</picture>
+![Image](https://github.com/cheiy/vitabu/assets/10514203/65529ad0-781e-452e-8110-8cd270e12ec0)
 The aim of this project is to create a web app where users can
 exchange, buy or sell school text books.
 A user signs up and creates an account. The user is then able to do
