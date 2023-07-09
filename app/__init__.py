@@ -5,6 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 
 # local imports
 from config import app_config
@@ -35,6 +36,21 @@ def create_app(config_name):
 
     migrate = Migrate(app, db)
 
+    Bootstrap(app)
+
     from app import models
+
+    """ Register Blueprints """
+    from .home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
+
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
+    from .products import products as products_blueprint
+    app.register_blueprint(products_blueprint)
 
     return app

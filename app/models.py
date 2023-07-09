@@ -54,7 +54,10 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User: {}>'.format(self.username)
 
-
+# user_loader setup
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Books Model
 class Book(db.Model):
@@ -91,7 +94,7 @@ class Publisher(db.Model):
     ISBN_code = db.Column(db.BigInteger, unique = True)
     added_by = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     date_added = db.Column(db.TIMESTAMP, unique = True)
-    books = db.relationship('Book', backref='book', lazy='dynamic')
+    books = db.relationship('Book', backref='bookpub', lazy='dynamic')
 
     def get_id(self):
         return self.publisher_id
@@ -129,7 +132,7 @@ class Subject(db.Model):
 
     subject_id = db.Column(db.Integer, primary_key = True)
     subject_name = db.Column(db.String(128), unique = True)
-    books = db.relationship('Book', backref='book', lazy='dynamic')
+    books = db.relationship('Book', backref='subjectbook', lazy='dynamic')
 
     def get_id(self):
         return self.subject_id
@@ -147,7 +150,7 @@ class Author(db.Model):
 
     author_id = db.Column(db.Integer, primary_key = True)
     author_name = db.Column(db.String(255))
-    book_authors = db.relationship('BookAuthors', backref='author', lazy='dynamic')
+    book_authors = db.relationship('BookAuthor', backref='author', lazy='dynamic')
 
     def get_id(self):
         return self.author_id
@@ -180,7 +183,7 @@ class BookAuthor(db.Model):
     __tablename__ = 'book_authors'
 
     author_id = db.Column(db.Integer, db.ForeignKey('authors.author_id'), primary_key=True)
-    books = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = True)
+    book_id = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = True)
 
     def __repr__(self):
         return '<Book_ID: {}  <--> Author_ID {}'.format(self.book_id, self.author_id)
