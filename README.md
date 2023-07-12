@@ -19,7 +19,10 @@ photos of the books, including a photo of the ISBN code for the particular
 book.
 
 **Installation**
+
 download the requirements.txt file that contains the required python3 modules
+
 **License**
+
 GPL-V2
 
