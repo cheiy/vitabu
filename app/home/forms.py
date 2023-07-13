@@ -17,7 +17,7 @@ class BookSearchForm(FlaskForm):
     select = SelectField('Search for book by Title, Subject, Publisher, Grade, Author or ISBN Number:', choices=choices)
     select2 = SelectField('For Sale, Exchange or Both Sale and Exchange', choices=buy_exchange_both)
    # search = StringField('',render_kw={"placeholder":"search by Title, Subject, Grade"})
-    search = StringField('Type search terms here', validators=[DataRequired()])
+    search = StringField('Enter Search Term')
     submit = SubmitField('Submit')
 
 

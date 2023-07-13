@@ -3,7 +3,7 @@
 from flask import abort, render_template, request, redirect, flash, url_for, request
 from flask_login import current_user, login_required
 from .forms import BookSearchForm, AddListingForm
-from ..models import Book, Grade
+from ..models import Book
 
 from . import home
 
@@ -19,15 +19,13 @@ def homepage():
        select2 = form.select2.data
        terms = form.search.data
        #flash(select)
+       flash(select)
        if select == 'Title':
            results =  Book.query.filter(Book.title.contains(terms))
        elif select == 'Subject':
-           results = Book.query.filter(Book.subject_id.contains(terms))
-       elif select == 'Grade':
-           results = Grade.query.filter_by(grade_name=terms)
+           results = Book.query.filter(Book.publisher_id.contains(terms))
        else:
-           results = Book.query.all()
-           flash("Please select search criteria")
+           results = Book.query.filter(Book.title.contains(terms))
        return render_template('home/results.html', title="results", results=results)
     return render_template('home/index.html', title="Welcome to Vitabu.ke", form=form)
 
@@ -79,13 +77,3 @@ def add_listing():
     form = AddListingForm()
     #listed_books = Book.query.all()
     return render_template('home/listings.html', form=form, listed_books=listed_books)
-
-@home.route('/list_by_grade/<int:id>', methods=['GET', 'POST'])
-def list_by_grades(id):
-    """
-    List all books in selected grade
-    """
-
-    #book = Book.query.all()
-    book = Book.query.filter_by(grade_id=id)
-    return render_template('home/books.html', book=book, title='GradeBooks')

@@ -2,9 +2,9 @@
 
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Email, Equalto
+from wtforms.validators import DataRequired, Email, EqualTo
 
-from ..models import Employee
+from ..models import User
 
 class RegistrationForm(FlaskForm):
     """
@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
     phone_number = StringField('Phone Number', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm_password')])
     confirm_password = PasswordField('Confirm Password')
-    submit = Submitfield('Register')
+    submit = SubmitField('Register')
 
     def validate_email(self, field):
         if User.query.filter.filter_by(email_address=field.data).first():
