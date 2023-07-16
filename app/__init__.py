@@ -7,6 +7,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 
+import os
 # local imports
 from config import app_config
 
@@ -16,18 +17,24 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 def create_app(config_name):
-    app = Flask(__name__, instance_relative_config = True)
-    """
-    Load config from instance/config.py
-    """
-    app.config.from_object(app_config[config_name])
-    """
-    Load config from config.py
-    """
-    app.config.from_pyfile('config.py')
-    """
-    Create db object
-    """
+    if os.getenv('FLASK_CONFIG') == "production":
+        app = Flask(__name__)
+        app.config.update(SECRET_KEY=os.getenv('SECRET_KEY'),
+                SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
+                )
+    else:
+        app = Flask(__name__, instance_relative_config = True)
+        """
+        Load config from instance/config.py
+        """
+        app.config.from_object(app_config[config_name])
+        """
+        Load config from config.py
+        """
+        app.config.from_pyfile('config.py')
+        """
+        Create db object
+        """
     db.init_app(app)
 
     login_manager.init_app(app)
