@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     publishers = db.relationship('Publisher', backref='user', lazy='dynamic')
     listings = db.relationship('Listing', backref='user', lazy='dynamic')
+    booklistings = db.relationship('BookListing', backref='user', lazy='dynamic') 
 
     def get_id(self):
         """
@@ -72,7 +73,7 @@ class Book(db.Model):
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.subject_id'))
     publisher_id = db.Column(db.Integer, db.ForeignKey('publishers.publisher_id'))
     grade_id = db.Column(db.Integer, db.ForeignKey('grades.grade_id'))
-    book_listings = db.relationship('BookListing', backref='booklisting', lazy='dynamic')
+    book_listings = db.relationship('BookListing', backref='book', lazy='dynamic')
 
     def get_id(self):
         return self.book_id
@@ -95,6 +96,7 @@ class Publisher(db.Model):
     added_by = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     date_added = db.Column(db.TIMESTAMP, unique = True)
     books = db.relationship('Book', backref='publisher', lazy='dynamic')
+    booklistings = db.relationship('BookListing', backref='publisher', lazy='dynamic')
 
     def get_id(self):
         return self.publisher_id
@@ -114,6 +116,7 @@ class Grade(db.Model):
     grade_num = db.Column(db.Integer, unique = True)
     grade_name = db.Column(db.String(100), unique = True)
     books = db.relationship('Book', backref='grade', lazy='dynamic')
+    booklistings = db.relationship('BookListing', backref='grade', lazy='dynamic')
 
     def get_id(self):
         self.id = self.grade_id
@@ -135,7 +138,8 @@ class Subject(db.Model):
     books = db.relationship('Book', backref='subject', lazy='dynamic')
 
     def get_id(self):
-        return self.subject_id
+        id = self.subject_id
+        return id
     
     def __repr__(self):
         return '<Subject: {}>'.format(self.subject_name)
@@ -168,9 +172,15 @@ class Listing(db.Model):
 
     listing_id = db.Column(db.BigInteger, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    book_listing = db.relationship('BookListing', backref='listing', lazy='dynamic')
 
     def get_id(self):
         return self.listing_id
+
+    def get_user_name(self):
+        users = User.query.filter(User.user_id == self.user_id)
+        for user in users:
+            return user.first_name
 
     def __repr__(self):
         return '<Listing: {}'.format(self.listing_id)
@@ -182,8 +192,9 @@ class BookAuthor(db.Model):
 
     __tablename__ = 'book_authors'
 
-    author_id = db.Column(db.Integer, db.ForeignKey('authors.author_id'), primary_key=True)
-    book_id = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = True)
+    bookauthor_id = db.Column(db.BigInteger, primary_key = True)
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.author_id'), primary_key = False)
+    book_id = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = False)
 
     def __repr__(self):
         return '<Book_ID: {}  <--> Author_ID {}'.format(self.book_id, self.author_id)
@@ -195,9 +206,15 @@ class BookListing(db.Model):
     """
 
     __tablename__ = 'book_listings'
-
-    book_id = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = True)
-    listing_id = db.Column(db.BigInteger, db.ForeignKey('listings.listing_id'), primary_key = True)
+    
+    booklisting_id = db.Column(db.BigInteger, primary_key = True)
+    book_id = db.Column(db.BigInteger, db.ForeignKey('books.book_id'), primary_key = False)
+    listing_id = db.Column(db.BigInteger, db.ForeignKey('listings.listing_id'), primary_key = False)
+    grade_id = db.Column(db.Integer, db.ForeignKey('grades.grade_id'), primary_key = False)
+    publisher_id = db.Column(db.Integer, db.ForeignKey('publishers.publisher_id'), primary_key = False)
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.author_id'), primary_key = False)
+    listing_date = db.Column(db.TIMESTAMP, primary_key = False)
+    listed_by = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key = False)
 
     def __repr__(self):
         return '<Listing_ID: {} <--> User_ID {}'.format(self.listing_id, self.user_id)

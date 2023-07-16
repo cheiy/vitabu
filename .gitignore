@@ -1,0 +1,7 @@
+instance
+*pycache
+*bak
+*/*pycache
+*/*bak
+*.pyc
+__pycache__/

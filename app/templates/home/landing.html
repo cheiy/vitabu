@@ -1,0 +1,39 @@
+<!-- app/templates/home/index.html -->
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+		{{ utils.flashed_messages() }}
+	 					
+                <div class="col-lg-12">
+                    <h1>Vitabu - Nunua Uza Badilisha</h1>
+                    <h3>Find the best deals on books and stationery!</h3>
+		    <hr class="intro-divider"> 
+                </div> 
+                   <div class="content-section">
+                     <div class="center">
+			     <img class="img-responsive" src="{{url_for('static', filename='/img/vitabu_img.jpg')}}" alt="vitabu">
+                     </div>
+		     <div class="row">
+			     <h1><a href="{{url_for('home.begin_here')}}">Start Here</a></h1>
+		     </div>
+                   </div>         
+	  </div>
+	  <div class="row">
+		  <div class="col-lg-4">
+			  <h3>List books you want to sell</h3>
+		  </div>
+		  <div class="col-lg-4">
+			  <h3>Save money on books</h3>
+		  </div>
+		  <div class="col-lg-4">
+			  <h3>List books you want to exchange</h3>
+		  </div>
+	  </div>
+
+    </div>
+</div>
+{% endblock %}

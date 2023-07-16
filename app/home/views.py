@@ -3,7 +3,7 @@
 from flask import abort, render_template, request, redirect, flash, url_for, request
 from flask_login import current_user, login_required
 from .forms import BookSearchForm, AddListingForm
-from ..models import Book, Grade
+from ..models import Book, Grade, BookListing
 
 from . import home
 
@@ -29,7 +29,14 @@ def homepage():
            results = Book.query.all()
            flash("Please select search criteria")
        return render_template('home/results.html', title="results", results=results)
-    return render_template('home/index.html', title="Welcome to Vitabu.ke", form=form)
+    return render_template('home/landing.html', title="Welcome to Vitabu.ke", form=form)
+
+@home.route('/begin')
+def begin_here():
+    """
+    Leave Landing Page
+    """
+    return render_template('home/index.html', title="Begin")
 
 @home.route('/dashboard')
 @login_required
@@ -48,7 +55,6 @@ def admin_dashboard():
        abort(403)
 
     return render_template('home/admin_dashboard.html', title="Dashboard")
-
 
 @home.route('/search', methods=['GET','POST'])
 def search_results(request):
@@ -88,4 +94,6 @@ def list_by_grades(id):
 
     #book = Book.query.all()
     book = Book.query.filter_by(grade_id=id)
-    return render_template('home/books.html', book=book, title='GradeBooks')
+    listings = BookListing.query.filter_by(grade_id=id)
+        
+    return render_template('home/books.html', book=book, listings=listings, title='GradeBooks')

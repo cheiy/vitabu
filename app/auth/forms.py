@@ -31,3 +31,13 @@ class LoginForm(FlaskForm):
     email_address = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class HasBookForm(FlaskForm):
+     """
+     Form for users to add books that they have
+
+     """
+     book_title = StringField('Title', validators=[DataRequired()])
+     subject = StringField('Subject', validators=[DataRequired()])
+     grade = StringField('Grade', validators=[DataRequired()])
+     submit = SubmitField('Login')
