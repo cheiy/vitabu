@@ -21,7 +21,10 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     publishers = db.relationship('Publisher', backref='user', lazy='dynamic')
     listings = db.relationship('Listing', backref='user', lazy='dynamic')
-    booklistings = db.relationship('BookListing', backref='user', lazy='dynamic') 
+    booklistings = db.relationship('BookListing', backref='user', lazy='dynamic')
+    userposts = db.relationship('UserPost', backref='user', lazy='dynamic')
+    offers = db.relationship('Offers', backref='user', lazy='dynamic')
+    postedbooks = db.relationship('PostedBook', backref='user', lazy='dynamic')
 
     def get_id(self):
         """
@@ -123,7 +126,7 @@ class Grade(db.Model):
         return self.id
 
     def __repr__(self):
-        return '<Grades: {}>'.format(self.grade_name)
+        return '<Grade: {}>'.format(self.grade_name)
 
 
 class Subject(db.Model):
@@ -218,3 +221,50 @@ class BookListing(db.Model):
 
     def __repr__(self):
         return '<Listing_ID: {} <--> User_ID {}'.format(self.listing_id, self.user_id)
+
+
+class UserPost(db.Model):
+    """
+    User Posts Table
+    """
+    __tablename__ = 'user_listings'
+
+    post_id = db.Column(db.BigInteger, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key = False)
+    title = db.Column(db.String(100))
+    books = db.relationship('PostedBook', backref='userpost', lazy='dynamic')
+    
+    def __repr__(self):
+        return '<Listing: {}'.format(self.title)
+
+class PostedBook(db.Model):
+    """
+    User Posted Books Table
+    """
+    __tablename__ = 'user_book_listings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key = False)
+    post_id = db.Column(db.BigInteger, db.ForeignKey('user_listings.post_id'), primary_key=False)
+    book_title = db.Column(db.Text)
+    book_author = db.Column(db.Text)
+    book_grade = db.Column(db.Integer)
+    book_publisher = db.Column(db.Text)
+    book_subject = db.Column(db.Text)
+    book_price = db.Column(db.Integer)
+    offers = db.relationship('Offers', backref='postedbook', lazy='dynamic')
+
+class Offers(db.Model):
+    """
+    Comment - Interested Buyers
+    """
+    __tablename__ = 'user_offers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    offer = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key = False)
+    posted_book_id = db.Column(db.Integer, db.ForeignKey('user_book_listings.id'), primary_key = False)
+
+    def __repr__(self):
+        return '<Comment: {}'.format(self.offer)
+
