@@ -1,0 +1,71 @@
+<!-- app/templates/admin/books/books.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Books{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner" >
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Books</h1>
+        {% if books %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%"> Title </th>
+                  <th width="20%"> Subject </th>
+                  <th width="15%"> Publisher </th>
+                  <th width="15%"> Grade </th>
+                  <th width="15%"> ISBN </th>
+                  <th width="5%"> Edit </th>
+                  <th width="5%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for book in books %}
+                <tr>
+                  <td> {{ book.title }} </td>
+                  <td> {{ book.subject_id }} </td>
+                  <td> {{ book.publisher_id }} </td>
+                  <td> {{ book.grade_id }} </td>
+                  <td> {{ book.isbn_code }} </td>
+                  <td> 
+                    <a href="{{ url_for('admin.edit_book', id=book.book_id) }}">
+                      <i class="fa fa-pencil"></i>Edit
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_book', id=book.book_id) }}">
+                      <i class="fa fa-pencil"></i>Delete
+                    </a>
+                  </td>
+                  </td>
+                           
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No books have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.add_book') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Book
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
