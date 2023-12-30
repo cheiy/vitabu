@@ -1,0 +1,14 @@
+<!-- aap/templates/home/listings.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Add Book Listing{% endblock %}
+{% block body %}
+<div class="content-section">
+	<div class="outer">
+		{{ wtf.quick_form(form) }}
+	</div>
+</div>
+{% endblock %}
+

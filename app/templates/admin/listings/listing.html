@@ -1,0 +1,27 @@
+<!-- app/templates/admin/listings/listing.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Update Listing{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            <h1> Update Listing </h1>
+            <br/>
+            <p>
+                Update Missing Information
+                <span style="color: #aec251;">
+                    {{ listing.id }}
+                </span>
+            </p>
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

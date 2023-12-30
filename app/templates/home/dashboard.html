@@ -4,11 +4,9 @@
 {% block title %}Dashboard{% endblock %}
 {% block body %}
 <div class="content-section">
-<div class="outer">
-<div class="middle">
-<div class="inner">
 <div class="center" height="90%" bgcolor="blue">
                   {% if current_user.is_authenticated %}
+<<<<<<< HEAD
                      {% if listed_books %}
                          <!--<table class="table table-striped table-bordered">-->
                           <table border="2" width="100%">
@@ -29,13 +27,35 @@
                     <!--<h1>The Dashboard</h1>-->
                     
                     <!--<li><a href="{{ url_for('home.add_listing') }}">Add Book</a></li>
+=======
+		     <h1> Add your book lists here </h1>
+                    <li><a href="{{ url_for('home.add_listing') }}">Add Book List</a></li>
+>>>>>>> b2edb49805e092be4d863682075ad471e48231c8
 			<div></div>
-                    <!--<hr class="intro-divider">
-</div>
-                    </ul>-->
-</div>
-</div>
-</div>
+                    </ul>
+		    <h1> Listings from other users </h1>
+		    {% if lists %}
+		    	LISTS FROM OTHERS
+		    {% for list in lists %}
+		    	<div class="post">
+				<p><b>#{{ list.id }}</b></p>
+				<b>
+					<p class="title">
+					<a href="#">
+						{{ list.title }}
+					</a>
+					</p>
+				</b>
+				<div class="content">
+					<p>{{ list.books }}
+				</div>
+				<hr>
+			</div>
+			{% endfor %}
+
+		  {% endif %}
+		  {% endif %}
+
 </div>
 </div>
 {% endblock %}
