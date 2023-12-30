@@ -17,7 +17,7 @@
 								<th width="20%">Publisher</th>
 								<th width="10%">Grade Name</th>
 								<th width="10%">Seller's Name</th>
-								<th width="20%">See Seller's Contact (Require's Registration)</th>
+								<th width="20%">Seller's Contact (Require's Registration)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,7 +35,11 @@
 								<td> {{ listing.book.publisher.shortname }}</td>
 								<td> {{ listing.grade.grade_name }}</td>
 								<td> {{ listing.user.first_name }}</td>
-								<td style="background-color: white; color:red;"><a href="{{ url_for('auth.register') }}">Register</td>
+                                {% if current_user.is_authenticated %}
+								    <td style="background-color: white; color:red;">{{ listing.user.phone_number }}</td>
+                                {% else %}
+								    <td style="background-color: white; color:red;"><a href="{{ url_for('auth.register') }}">Register</td>
+                                {% endif %}
 							</tr>
 						{% endfor %}
 						</tbody>
